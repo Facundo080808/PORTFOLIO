@@ -1,0 +1,76 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../utils/consts';
+import TotalExperience from '../components/TotalExperience.astro';
+import Hero from '../components/Hero.astro';
+import SectionContainer from '../components/SectionContainer.astro';
+import TitleSection from '../components/TitleSection.astro';
+import ExperienceIcon from '../components/Icons/ExperienceIcon.astro';
+import ProyectIcon from '../components/Icons/ProyectIcons.astro'
+import Proyects from '../components/Proyects.astro';
+import { ClientRouter } from "astro:transitions"
+import AboutMe from '../components/AboutMe.astro';
+import ProfileCheck from '../components/Icons/AboutMe.astro';
+---
+
+<!doctype html>
+<html lang="en" >
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script>
+			 (function() {
+				const storedTheme = localStorage.getItem("Theme") || "light";
+				document.documentElement.setAttribute("data-theme", storedTheme);	
+				const lenguaje = navigator.language 
+				if (lenguaje.includes("es")) {
+					localStorage.setItem("lang", "es");
+				} else {
+					localStorage.setItem("lang", "en");
+				}
+			})();
+		</script>	
+		<ClientRouter />
+	</head>
+	<body class="bg-gradient-to-r from-white to-gray-100 text-gray-900 dark:from-gray-900 dark:to-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-300">
+
+		
+		<Header />
+		<main class="my-20 flex-col gap-8 flex items-center justify-center">
+			
+			<SectionContainer class="md:py-30">
+				<Hero>
+					</slot>
+				</Hero>
+			</SectionContainer>
+			
+			<SectionContainer id="experiencia" class=" pb-30">
+				<TitleSection>
+        			<ExperienceIcon class="size-8" />
+        			Experiencia laboral
+      			</TitleSection>
+				<TotalExperience/>
+			</SectionContainer>
+
+			<SectionContainer id="proyectos" class=" pb-30">
+				<TitleSection>
+        			<ProyectIcon class="size-8" />
+        			Proyectos
+      			</TitleSection>
+				<Proyects/>
+			</SectionContainer>
+
+			<SectionContainer id="sobre-mi">
+				<TitleSection>
+					<ProfileCheck class="size-8" />
+					Sobre mí
+				</TitleSection>
+				<AboutMe />
+			</SectionContainer>
+			
+		</main>
+		<Footer />
+	</body>
+	 
+</html>

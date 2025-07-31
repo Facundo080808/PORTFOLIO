@@ -1,0 +1,179 @@
+---
+import GitHub from "../components/Icons/GitHub.astro"
+import Nodejs from "../components/Icons/Node.js.astro"
+import Tailwind from "../components/Icons/Tailwind.astro"
+import Bootstrap from "../components/Icons/Bootstrap.astro"
+import Link from "../components/Icons/Link.astro"
+import LinkButton from "../components/ButtonLink.astro"
+import ElectronSVG from "./Icons/ElectronSVG.astro"
+import NextJs from "./Icons/NextJs.astro"
+
+const TAGS = {
+  NODEJS: {
+    name: "Node.js",
+    class: "bg-black text-white",
+    icon: Nodejs,
+  },
+  TAILWIND: {
+    name: "Tailwind CSS",
+    class: "bg-[#003159] text-white",
+    icon: Tailwind,
+  },
+  ELECTRON: {
+    name: "Electron.js",
+    class: "bg-[#47848f] text-white",
+    icon: ElectronSVG,
+  },
+  BOOTSTRAP: {
+    name: "Bootstrap",
+    class: "bg-[#563d7c] text-white",
+    icon: Bootstrap,
+  },
+  NEXTJS: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: NextJs,
+  },
+}
+
+const PROJECTS = [
+  {
+    title: "Control de ventas de productos",
+    description:
+      "Control de ventas de productos con Electron.js, Node.js y Bootstrap CSS. Permite gestionar productos, ventas y reportes.",
+    link: "",
+    github: "https://github.com/Facundo080808/Control-de-stock",
+    images: [
+      "../../public/cap1.webp",
+      "../../public/cap2.webp",
+      "../../public/cap3.webp",
+      "../../public/cap4.webp"
+    ],
+    tags: [TAGS.NODEJS, TAGS.BOOTSTRAP, TAGS.ELECTRON],
+  },
+  {
+    title:"Agencia de landings",
+    description:
+      "Landing page de una agencia de desarrollo web, con un diseño moderno y responsivo. Utiliza Tailwind CSS, Next.js, Resend para enviar emails, deploy en Vercel y Namecheap.",
+    link: "https://www.protoly.lat/pt",
+    github:"https://github.com/Facundo080808/hero-framer-studio-landing",
+    images:"../../public/agenciaDeLandings.webp",
+    tags:[TAGS.TAILWIND, TAGS.NEXTJS],
+  },
+  { 
+    title:"Whatsapp automation ",
+    description:
+      "Landing page para un servicio de automatización de WhatsApp, con un diseño moderno y responsivo. Utiliza Tailwind CSS, Framer motion, Next.js, deploy en Vercel.",
+    github:"https://github.com/Facundo080808/taxLanding",
+    link:"https://whatsapp-automation-landing-2-0.vercel.app/",
+    images:"../../public/whatsappAutomation.webp",
+    tags:[TAGS.TAILWIND, TAGS.NEXTJS],
+  }
+]
+---
+<div class="flex flex-col gap-y-16 animate-fade-in"id={"caja"} >
+  {
+    PROJECTS.map(({ images, title, description, tags, link, github }, index) => (
+      <article class="flex flex-col space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+        
+        <!-- Slider interno -->
+        <div class="w-full md:w-1/2">
+          <div class="relative">
+            <!-- Botón izquierda -->
+           {Array.isArray(images)&& <button 
+              type="button"
+              onclick={`scrollSlider(-1, ${index})`}
+              class="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800/50 hover:bg-gray-800 text-white rounded-full p-2 z-10 hover:cursor-pointer"
+            >
+              ‹
+            </button>}
+            
+            <div id={`slider-${index}`} class="slider max-w-[1200px] mx-auto overflow-x-auto flex snap-x snap-mandatory space-x-4 pb-2 scroll-smooth ">
+              {Array.isArray(images)?images.map((img, i) => (
+                <img 
+                  src={img} 
+                  alt={`${title} screenshot ${i+1}`} 
+                  loading="lazy"
+                  class="w-full flex-shrink-0 h-56 object-cover rounded-xl snap-center transition-transform duration-300 ease-in-out hover:scale-105"
+                />
+
+
+              ))
+              :
+               <img 
+                  src={images} 
+                  alt={`${title} screenshot`} 
+                  loading="lazy"
+                  class="w-full flex-shrink-0 h-56 object-cover rounded-xl snap-center transition-transform duration-300 ease-in-out hover:scale-105"
+                />
+              }
+            </div>
+
+            <!-- Botón derecha -->
+           {Array.isArray(images)&& <button 
+              type="button"
+              onclick={`scrollSlider(1, ${index})`}
+              class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800/50 hover:bg-gray-800 text-white rounded-full p-2 z-10 hover:cursor-pointer"
+            >
+              ›
+            </button>}
+          </div>
+        </div>
+
+        <!-- Info del proyecto -->
+        <div class="w-full md:w-1/2 md:max-w-lg">
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+            {title}
+          </h3>
+          <ul class="flex flex-row mt-2 mb-2 gap-x-2">
+            {tags.map((tag) => (
+              <li>
+                <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                  <tag.icon class="size-4" />
+                  {tag.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+          <footer class=" flex items-end justify-start mt-4 gap-x-4">
+            {github && (
+              <LinkButton href={github}>
+                <GitHub class="size-6" />
+                Code
+              </LinkButton>
+            )}
+            {link && (
+              <LinkButton href={link}>
+                <Link class="size-4" />
+                Preview
+              </LinkButton>
+            )}
+          </footer>
+        </div>
+
+      </article>
+    ))
+  }
+</div>
+<style>
+  @media (min-width: 768px) {
+  .slider {
+    scrollbar-width: none; /* Firefox */
+  }
+  .slider::-webkit-scrollbar { /* Chrome, Safari */
+    display: none;
+  }
+}
+</style>
+<script is:inline >
+
+  function scrollSlider(direction, index) {
+    const slider = document.getElementById(`slider-${index}`);
+    if (slider) {
+      const scrollAmount = slider.offsetWidth * 0.8;
+      slider.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+    }
+  }
+
+</script>

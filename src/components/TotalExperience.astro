@@ -1,0 +1,31 @@
+---
+import ExperienceItem from './ExperienceItem.astro'
+const Experience = [
+    {
+        date:"Marzo 2024 - Febrero 2025",
+        title: "Backend developer",
+        description: "En este proyecto trabaje en el desarrollo de la integración de WhatsApp con whatsapp-web.js y de la creacion del servidor APIrest en tareas como la autenticacion y la creación de APIs para la gestión de contactos con importación/exportación en CSV",
+        link:"https://whatclick.net/",
+        company:"BeCode"
+    },
+    {
+        date:"Marzo 2024 - Febrero 2025",
+        title: "Desarrollador FullStack",
+        description: "En este proyecto aporte en el backend con autenticacion y en el sistema de pago con stripe. Del lado del frontend estuve creando las vistas del diseño de Figma sobre los distintos libros segun el nivel de ingles utilizando Tailwind.css",
+        link:"https://tep-frontend-five.vercel.app/homeTeacher",
+        company:"BeCode"
+    }
+]
+---
+
+    
+<ol class="relative mt-16" id="#experiencia">
+    {
+      Experience.map(element => (
+        <li>
+          <ExperienceItem {...element} />
+        </li>
+      ))
+    }
+  </ol>
+  

@@ -1,0 +1,76 @@
+---
+import Language from "./Icons/Language.astro"
+import LanguajeToggle from "./LanguajeTogle.astro"
+const navItems = [
+  {
+    title: "Experiencia",
+    label: "experiencia",
+    url: "/#experiencia",
+  },
+  {
+    title: "Proyectos",
+    label: "proyectos",
+    url: "/#proyectos",
+  },
+  {
+    title: "Sobre mí",
+    label: "sobre-mi",
+    url: "/#sobre-mi",
+  },
+  {
+    title: "Contacto",
+    label: "contacto",
+    url: "mailto:cortezfacundo08@gmail.com",
+  },
+]
+---
+
+<header
+  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2 text-black"
+>
+  <nav
+    class="flex px-3 text-sm font-medium rounded-full text-black dark:text-gray-200 justify-center items-center gap-4"
+  >
+    {
+      navItems.map((link) => (
+        <a
+          class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
+          aria-label={link.label}
+          href={link.url}
+        >
+          {link.title}
+        </a>
+      ))
+    }
+    <button class=" md:flex hidden hover:cursor-pointer hover:scale-125 transition" id="btn">
+      <span id="theme-icon"></span>
+    </button>
+    <!-- <LanguajeToggle></LanguajeToggle> -->
+    
+  </nav>
+</header> 
+
+
+<script src="../utils/theme.js"></script>
+<style>
+  nav {
+    animation: nav-shadown 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+  }
+
+  
+
+  @keyframes nav-shadown {
+    0% {
+      background-color: rgba(255, 255, 255, 0);
+    }
+    to {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                  0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
+      backdrop-filter: blur(8px); /* backdrop-blur */
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+</style>
+
